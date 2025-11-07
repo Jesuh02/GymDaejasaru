@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Entrenadores - GymDaejaSaru{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-person-badge"></i> Lista de Entrenadores</span>
+        <a href="{% url 'entrenador_create' %}" class="btn btn-light btn-sm">
+            <i class="bi bi-plus-circle"></i> Nuevo Entrenador
+        </a>
+    </div>
+    <div class="card-body">
+        <form method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Buscar por nombre..." value="{{ request.GET.search }}">
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+        </form>
+
+        {% if entrenadores %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Documento</th>
+                        <th>Tipo Documento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entrenador in entrenadores %}
+                    <tr>
+                        <td>{{ entrenador.entr_id }}</td>
+                        <td>{{ entrenador.entr_nombre }}</td>
+                        <td>{{ entrenador.entr_telefono|default:"-" }}</td>
+                        <td>{{ entrenador.entr_numero_documento|default:"-" }}</td>
+                        <td>
+                            {% if entrenador.dama_tipo_documento %}
+                                <span class="badge bg-info">{{ entrenador.dama_tipo_documento.dama_nombre }}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">No especificado</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'entrenador_update' entrenador.entr_id %}" class="btn btn-sm btn-warning">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'entrenador_delete' entrenador.entr_id %}" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                    </li>
+                {% endif %}
+                <li class="page-item active">
+                    <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                </li>
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No hay entrenadores registrados.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

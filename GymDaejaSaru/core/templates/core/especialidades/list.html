@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Especialidades - GymDaejaSaru{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-star"></i> Lista de Especialidades</span>
+        <a href="{% url 'especialidad_create' %}" class="btn btn-light btn-sm">
+            <i class="bi bi-plus-circle"></i> Asignar Especialidad
+        </a>
+    </div>
+    <div class="card-body">
+        {% if especialidades %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Entrenador</th>
+                        <th>Especialidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for especialidad in especialidades %}
+                    <tr>
+                        <td>{{ especialidad.esen_id }}</td>
+                        <td>{{ especialidad.entr_id.entr_nombre }}</td>
+                        <td>
+                            {% if especialidad.dama_especialidad_id %}
+                                <span class="badge bg-warning text-dark">{{ especialidad.dama_especialidad_id.dama_nombre }}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">No especificado</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'especialidad_delete' especialidad.esen_id %}" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                    </li>
+                {% endif %}
+                <li class="page-item active">
+                    <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                </li>
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No hay especialidades registradas.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

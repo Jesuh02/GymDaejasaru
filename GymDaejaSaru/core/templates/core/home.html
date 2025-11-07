@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Inicio - GymDaejaSaru{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="bi bi-activity"></i> Sistema de Gestión de Gimnasio
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="stats-card text-center">
+            <i class="bi bi-person-badge" style="font-size: 3rem;"></i>
+            <h3>{{ total_entrenadores }}</h3>
+            <p>Entrenadores</p>
+            <a href="{% url 'entrenador_list' %}" class="btn btn-light btn-sm">
+                Ver todos <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card text-center" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <i class="bi bi-people" style="font-size: 3rem;"></i>
+            <h3>{{ total_clientes }}</h3>
+            <p>Clientes</p>
+            <a href="{% url 'cliente_list' %}" class="btn btn-light btn-sm">
+                Ver todos <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card text-center" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <i class="bi bi-calendar-event" style="font-size: 3rem;"></i>
+            <h3>{{ total_clases }}</h3>
+            <p>Clases</p>
+            <a href="{% url 'clase_list' %}" class="btn btn-light btn-sm">
+                Ver todas <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card text-center" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+            <i class="bi bi-card-checklist" style="font-size: 3rem;"></i>
+            <h3>{{ total_membresias }}</h3>
+            <p>Membresías</p>
+            <a href="{% url 'membresia_list' %}" class="btn btn-light btn-sm">
+                Ver todas <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-speedometer2"></i> Accesos Rápidos
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'entrenador_create' %}" class="btn btn-primary w-100">
+                            <i class="bi bi-person-plus"></i> Nuevo Entrenador
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'cliente_create' %}" class="btn btn-success w-100">
+                            <i class="bi bi-person-plus-fill"></i> Nuevo Cliente
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'clase_create' %}" class="btn btn-info w-100">
+                            <i class="bi bi-calendar-plus"></i> Nueva Clase
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'membresia_create' %}" class="btn btn-warning w-100">
+                            <i class="bi bi-card-text"></i> Nueva Membresía
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
