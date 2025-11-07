@@ -1,0 +1,8 @@
+Package     Version
+----------- -------
+asgiref     3.10.0
+Django      5.2.8
+mysqlclient 2.2.7
+pip         25.3
+sqlparse    0.5.3
+tzdata      2025.2
